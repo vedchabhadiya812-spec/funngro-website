@@ -1,0 +1,153 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Figtree", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Bricolage Grotesque", "Figtree", ui-sans-serif, sans-serif;
+
+  --color-ink: #0c1210;
+  --color-panel: #17211c;
+  --color-line: #314038;
+  --color-cream: #f4efe4;
+  --color-cream-dim: #e4dccb;
+  --color-mute: #9aaba2;
+  --color-lime: #d6f25a;
+  --color-coral: #ff5a36;
+
+  --radius-card: 1.35rem;
+}
+
+@layer base {
+  html {
+    background: var(--color-ink);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    background: var(--color-ink);
+    color: var(--color-cream);
+    font-family: var(--font-sans);
+    text-rendering: optimizeLegibility;
+  }
+
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+
+  ::selection {
+    background: var(--color-lime);
+    color: var(--color-ink);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-lime);
+    outline-offset: 3px;
+  }
+
+  input[type="range"] {
+    accent-color: var(--color-lime);
+    width: 100%;
+    height: 2.75rem;
+  }
+
+  summary {
+    list-style: none;
+  }
+
+  summary::-webkit-details-marker {
+    display: none;
+  }
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(14px);
+  animation: rise 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
+}
+
+.d1 { animation-delay: 0.08s; }
+.d2 { animation-delay: 0.16s; }
+.d3 { animation-delay: 0.24s; }
+.d4 { animation-delay: 0.32s; }
+
+@keyframes rise {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.orbit {
+  animation: spin 36s linear infinite;
+}
+
+.orbit-rev {
+  animation: spin 36s linear infinite reverse;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.marquee {
+  display: flex;
+  width: max-content;
+  animation: ticker 38s linear infinite;
+}
+
+@keyframes ticker {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+section[id] {
+  scroll-margin-top: 5rem;
+}
+
+.tap {
+  transition: background-color 160ms ease, border-color 160ms ease, color 160ms ease;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .tap:active {
+    transform: scale(0.98);
+  }
+}
+.pass-notch {
+  position: relative;
+}
+
+.pass-notch::before,
+.pass-notch::after {
+  content: "";
+  position: absolute;
+  top: 9.25rem;
+  width: 1.35rem;
+  height: 1.35rem;
+  border-radius: 999px;
+  background: var(--color-ink);
+}
+
+.pass-notch::before { left: -0.7rem; }
+.pass-notch::after { right: -0.7rem; }
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .orbit,
+  .orbit-rev,
+  .marquee {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
